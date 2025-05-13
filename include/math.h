@@ -10,5 +10,6 @@
 
 double degreesToRads(double degree);
 double radsToDegrees(double rads);
+double normalizeAngle(double degrees);
 
 #endif
