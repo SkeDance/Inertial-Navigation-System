@@ -28,8 +28,8 @@ class IMU{
         double getAngularWE();
         double getAngularWN();
         double getAngularWUp();
-        double getR_fi();
-        double getR_lambda();
+        static double getR_fi();
+        static double getR_lambda();
         double get_aEk();
         double get_aNk();
         double get_aUpk();
@@ -44,7 +44,7 @@ class IMU{
     private:
         double VE, VN, VUp;
         double WE, WN, WUp;
-        double R_fi, R_lambda;
+        static double R_fi, R_lambda;
         double current_aX, previous_aX;
         double current_aY, previous_aY;
         double current_aZ, previous_aZ;
