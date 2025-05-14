@@ -1,5 +1,5 @@
-#include "../include/math.h"
 #include <iostream>
+#include "../include/math.h"
 
 double degreesToRads(double degree)
 {

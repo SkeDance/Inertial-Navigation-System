@@ -1,7 +1,17 @@
+#include <iostream>
 #include "../include/navigation.h"
 #include "../include/data.h"
 #include "../include/math.h"
 #include "../include/IMU.h"
+
+double navigator::fi = 0.0;
+double navigator::lambda = 0.0;
+double navigator::previous_VN = 0.0;
+double navigator::current_VN = 0.0;
+double navigator::integral_VN = 0.0;
+double navigator::previous_VE = 0.0;
+double navigator::current_VE = 0.0;
+double navigator::integral_VE = 0.0;
 
 void navigator::calcFi(double speedVN){
     previous_VN = current_VN;

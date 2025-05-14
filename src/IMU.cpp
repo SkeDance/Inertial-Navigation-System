@@ -1,7 +1,11 @@
+#include <iostream>
 #include "../include/IMU.h"
 #include "../include/math.h"
 #include "../include/data.h"
 #include "../include/matrixOperations.h"
+
+double IMU::R_fi = 0.0;
+double IMU::R_lambda = 0.0;
 
 void IMU::set(double roll_0, double pitch_0, double yaw_0, double fi_0){
     double matrix_0[3][3];
@@ -104,6 +108,18 @@ void IMU::calc_aNk(){
 
 void IMU::calc_aUpk(){
     aUPk = ((-IMU::getAngularWE() * IMU::getSpeedVN()) + (IMU::getAngularWN() * IMU::getSpeedVE()) + (U * cos(data::getFi_0()) * IMU::getSpeedVE() - g));
+}
+
+double IMU::getSpeedVE(){
+    return VE;
+}
+
+double IMU::getSpeedVN(){
+    return VN;
+}
+
+double IMU::getSpeedVUp(){
+    return VUp;
 }
 
 double IMU::get_aEk(){

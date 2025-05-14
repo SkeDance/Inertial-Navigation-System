@@ -1,6 +1,12 @@
+#include <iostream>
 #include <cmath>
 #include "../include/orientation.h"
 #include "../include/math.h"
+
+double orientationBlock::pitch = 0.0;
+double orientationBlock::roll = 0.0;
+double orientationBlock::yaw = 0.0;
+double orientationBlock::C_0 = 0.0;
 
 void orientationBlock::calcC0(double A, double B){
     C_0 = sqrt(A * A + B * B);

@@ -1,5 +1,19 @@
-#include "../include/data.h"
 #include <iostream>
+#include "../include/data.h"
+
+double data::time = 0.0;
+double data::gyroX = 0.0;
+double data::gyroY = 0.0;
+double data::gyroZ = 0.0;
+double data::accelX = 0.0;
+double data::accelY = 0.0;
+double data::accelZ = 0.0;
+double data::height = 0.0;
+double data::roll_0 = 0.0;
+double data::pitch_0 = 0.0;
+double data::yaw_0 = 0.0;
+double data::fi_0 = 0.0;
+double data::lambda_0 = 0.0;
 
 void data::parse(const std::string& str) {
     std::istringstream iss(str);
