@@ -3,15 +3,17 @@
 
 class navigator{
     private:
-        double fi;
-        double lambda;
-        double previous_VN, current_VN, integral_VN;
-        double previous_VE, current_VE, integral_VE;
+        static double fi;
+        static double lambda;
+        static double previous_VN, current_VN, integral_VN;
+        static double previous_VE, current_VE, integral_VE;
     public:
-        void calcFi(double speedVN);
-        void calcLambda(double speedVE);
-        double getFi();
-        double getLambda();
+        static void calcFi(double speedVN);
+        static void calcLambda(double speedVE);
+        static void setFi(double fi);
+        static void setLambda(double fi);
+        static double getFi();
+        static double getLambda();
 };
 
 #endif

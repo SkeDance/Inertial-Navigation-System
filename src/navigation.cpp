@@ -26,3 +26,10 @@ double navigator::getFi(){
 double navigator::getLambda(){
     return lambda;
 }
+
+void navigator::setFi(double fi_0){
+    fi = fi_0;
+}
+void navigator::setLambda(double lambda_0){
+    lambda = lambda_0;
+}
