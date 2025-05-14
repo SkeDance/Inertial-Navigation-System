@@ -20,6 +20,11 @@ class IMU{
         void calc_aEk();
         void calc_aNk();
         void calc_aUpk();
+        void set_d_a(double error);
+        void set_w_dr(double error);
+        void set_a_M(double error);
+        void set_w_M(double error);
+        void setNeort(double error);
 
         //get
         double getSpeedVE();
@@ -33,15 +38,16 @@ class IMU{
         double get_aEk();
         double get_aNk();
         double get_aUpk();
+        double get_d_a();
+        double get_w_dr();
+        double get_a_M();
+        double get_w_M();
+        double getNeort();
+        double (&getCB_PL())[3][3]; 
 
-        double d_a = 1 * g * pow(10, -3);    
-        double w_dr;           
-        
-        double w_M;                    
-        double a_M;                    
-        
-        double err_Neort;
+
     private:
+        double CB_PL[3][3];
         double VE, VN, VUp;
         double WE, WN, WUp;
         static double R_fi, R_lambda;
@@ -49,6 +55,14 @@ class IMU{
         double current_aY, previous_aY;
         double current_aZ, previous_aZ;
         double aEk, aNk, aUPk;
+
+        double d_a;      
+        double w_dr;           
+            
+        double w_M;                    
+        double a_M;                    
+            
+        double err_Neort;
 
 };
 

@@ -19,8 +19,6 @@ void IMU::set(double roll_0, double pitch_0, double yaw_0, double fi_0){
     double FN = d_a / g;
     double FUp = w_dr / (degreesToRads(U) * cos(fi_0));
 
-    double CB_PL[3][3];
-
     CB_PL[0][0] = 1;
     CB_PL[0][1] = -FUp;
     CB_PL[0][2] = FN;
@@ -35,13 +33,14 @@ void IMU::set(double roll_0, double pitch_0, double yaw_0, double fi_0){
 }
 
 void IMU::bodyToLocal(double A[3][3], double B[3][1], double C[3][1]){
-    for (int i = 0; i < 3; i++)
-    {
-        C[i][0] = 0;
-        for (int k = 0; k < 3; k++)
-        {
-            C[i][0] += A[i][k] * B[k][0];
+    double temp[3][1] = {0};
+    for (int i = 0; i < 3; i++){
+        for (int k = 0; k < 3; k++){
+            temp[i][0] += B[k][0] * A[i][k];
         }
+    }
+    for (int i = 0; i < 3; i++){
+        C[i][0] = temp[i][0];
     }
 }
 
@@ -125,4 +124,40 @@ double IMU::getR_fi(){
 
 double IMU::getR_lambda(){
     return R_lambda;
+}
+
+double IMU::get_d_a(){
+    return d_a;
+}
+double IMU::get_w_dr(){
+    return w_dr;
+}
+double IMU::get_a_M(){
+    return a_M;
+}
+double IMU::get_w_M(){
+    return w_M;
+}
+double IMU::getNeort(){
+    return err_Neort;
+}
+
+void IMU::set_d_a(double error){
+    d_a = error;
+}
+void IMU::set_w_dr(double error){
+    w_dr = error;
+}
+void IMU::set_a_M(double error){
+    a_M = error;
+}
+void IMU::set_w_M(double error){
+    w_M = error;
+}
+void IMU::setNeort(double error){
+    err_Neort = error;
+}
+
+double (&IMU::getCB_PL())[3][3] {
+    return CB_PL;
 }
