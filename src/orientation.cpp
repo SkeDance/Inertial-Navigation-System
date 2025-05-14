@@ -14,7 +14,7 @@ void orientationBlock::calcPitch(double A){
     pitch = radsToDegrees(atan(A / orientationBlock::getC0()));
 }
 
-void orientationBlock::calcPitch(double A, double B){
+void orientationBlock::calcRoll(double A, double B){
     roll = radsToDegrees(-atan2(A, B));
 }
 

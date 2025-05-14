@@ -3,17 +3,17 @@
 
 class orientationBlock{
     public:
-        void calcC0(double A, double B);
-        void calcPitch(double A);
-        void calcPitch(double A, double B);
-        void calcYaw(double A, double B);
-        double getC0();
-        double getPitch();
-        double getRoll();
-        double getYaw();    
+        static void calcC0(double A, double B);
+        static void calcPitch(double A);
+        static void calcRoll(double A, double B);
+        static void calcYaw(double A, double B);
+        static double getC0();
+        static double getPitch();
+        static double getRoll();
+        static double getYaw();    
     private:
-        double pitch, roll, yaw;
-        double C_0;
+        static double pitch, roll, yaw;
+        static double C_0;
 };
 
 
