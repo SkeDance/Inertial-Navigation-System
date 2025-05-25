@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/data.h"
+#include "../include/math.h"
 
 double data::time = 0.0;
 double data::gyroX = 0.0;
@@ -73,15 +74,15 @@ double data::getTime(){
 }
 
 double data::getGyroX(){
-    return gyroX;
+    return degreesToRads(gyroX);
 }
 
 double data::getGyroY(){
-    return gyroY;
+    return degreesToRads(gyroY);
 }
 
 double data::getGyroZ(){
-    return gyroZ;
+    return degreesToRads(gyroZ);
 }
 
 double data::getAccelX(){
