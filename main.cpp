@@ -43,7 +43,7 @@ int main(){
     sensors.set_a_M(0.0001);
     sensors.set_d_a(0.3 * g * pow(10,-3));
     sensors.set_w_M(0.0001);
-    sensors.set_w_dr(degreesToRads(0.005 / 3600));
+    sensors.set_w_dr(0.005 / 3600);
     sensors.setNeort(0.0001);
     while (std::getline(Fin, line)) {
         myData.parse(line);

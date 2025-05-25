@@ -162,7 +162,7 @@ void IMU::set_d_a(double error){
     d_a = error;
 }
 void IMU::set_w_dr(double error){
-    w_dr = error;
+    w_dr = degreesToRads(error);
 }
 void IMU::set_a_M(double error){
     a_M = error;
