@@ -23,43 +23,43 @@ void data::parse(const std::string& str) {
 
     while (iss >> token) {
         switch (tokenCount) {
-            case 1:  // time (предполагаем, что токены нумеруются с 0)
+            case 0:  // time (предполагаем, что токены нумеруются с 0)
                 time = std::stod(token);
                 break;
-            case 2:  // gyroX
+            case 1:  // gyroX
                 gyroX = std::stod(token);
                 break;
-            case 3:  // gyroY
+            case 2:  // gyroY
                 gyroY = std::stod(token);
                 break;
-            case 4:  // gyroZ
+            case 3:  // gyroZ
                 gyroZ = std::stod(token);
                 break;
-            case 5:  // accelX
+            case 4:  // accelX
                 accelX = std::stod(token);
                 break;
-            case 6:  // accelY
+            case 5:  // accelY
                 accelY = std::stod(token);
                 break;
-            case 7:  // accelZ
+            case 6:  // accelZ
                 accelZ = std::stod(token);
                 break;
-            case 8:  // roll_0
+            case 7:  // roll_0
                 roll_0 = std::stod(token);
                 break;
-            case 9:  // pitch_0
+            case 8:  // pitch_0
                 pitch_0 = std::stod(token);
                 break;
-            case 10: // yaw_0
+            case 9: // yaw_0
                 yaw_0 = std::stod(token);
                 break;
-            case 13: // fi_0
+            case 12: // fi_0
                 fi_0 = std::stod(token);
                 break;
-            case 14: // lambda_0
+            case 13: // lambda_0
                 lambda_0 = std::stod(token);
                 break;
-            case 15: // height
+            case 14: // height
                 height = std::stod(token);
                 break;
             default:
