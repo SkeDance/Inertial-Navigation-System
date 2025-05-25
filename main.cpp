@@ -47,6 +47,21 @@ int main(){
     sensors.setNeort(0.0001);
     while (std::getline(Fin, line)) {
         myData.parse(line);
+
+        std::cout   << myData.getTime() << "\t"
+                    << myData.getGyroX() << "\t"
+                    << myData.getGyroY() << "\t"
+                    << myData.getGyroZ() << "\t"
+                    << myData.getAccelX() << "\t"
+                    << myData.getAccelY() << "\t"
+                    << myData.getAccelZ() << "\t"
+                    << myData.getRoll_0() << "\t"
+                    << myData.getPitch_0() << "\t"
+                    << myData.getYaw_0() << "\t"
+                    << myData.getFi_0() << "\t"
+                    << myData.getLambda_0() << "\t"
+                    << myData.getHeight() << "\t";
+        
         double GyroW[3][1] = {{myData.getGyroX()}, {myData.getGyroY()}, {myData.getGyroZ()}};
         double Accel[3][1] = {{myData.getAccelX()}, {myData.getAccelY()}, {myData.getAccelZ()}}; 
 
