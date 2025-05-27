@@ -7,6 +7,7 @@
 class IMU{
     public:
         //set
+        IMU();
         void set(double roll_0, double pitch_0, double yaw_0, double fi_0);
         void bodyToLocal(double A[3][3], double B[3][1], double C[3][1]);
         void calcSpeedVE(double acceleration);

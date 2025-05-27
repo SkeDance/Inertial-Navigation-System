@@ -7,6 +7,16 @@
 double IMU::R_fi = 0.0;
 double IMU::R_lambda = 0.0;
 
+IMU::IMU() 
+    : VE(0.0), VN(0.0), VUp(0.0),
+      previous_aX(0.0), current_aX(0.0),
+      previous_aY(0.0), current_aY(0.0),
+      previous_aZ(0.0), current_aZ(0.0),
+      aEk(0.0), aNk(0.0), aUPk(0.0)
+{
+
+}
+
 void IMU::set(double roll_0, double pitch_0, double yaw_0, double fi_0){
     double matrix_0[3][3];
     matrix_0[0][0] = cos(degreesToRads(roll_0)) * cos(degreesToRads(yaw_0)) + sin(degreesToRads(pitch_0)) * sin(degreesToRads(roll_0)) * sin(degreesToRads(yaw_0));
@@ -79,7 +89,7 @@ void IMU::calcAngularWE(double VN){
 }
 
 void  IMU::calcAngularWN(double VE){
-    WN = (VE / (getR_lambda() + data::getFi_0()) + U * cos(data::getFi_0()));
+    WN = (VE / (getR_lambda() + data::getHeight()) + U * cos(data::getFi_0()));
 }
 
 void IMU::calcAngularWUp(double VE){

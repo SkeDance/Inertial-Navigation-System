@@ -60,7 +60,7 @@ int main(){
                     << myData.getYaw_0() << "\t"
                     << myData.getFi_0() << "\t"
                     << myData.getLambda_0() << "\t"
-                    << myData.getHeight() << "\t";
+                    << myData.getHeight() << "\n" << std::endl;
         
         double GyroW[3][1] = {{myData.getGyroX()}, {myData.getGyroY()}, {myData.getGyroZ()}};
         double Accel[3][1] = {{myData.getAccelX()}, {myData.getAccelY()}, {myData.getAccelZ()}}; 
@@ -75,13 +75,16 @@ int main(){
             {1.0 + sensors.get_a_M(), sensors.getNeort(), sensors.getNeort()},
             {sensors.getNeort(), 1.0 + sensors.get_a_M(), sensors.getNeort()},
             {sensors.getNeort(), sensors.getNeort(), 1.0 + sensors.get_a_M()}
-        };
+        }; 
 
         matrix::multiply(ErrorsMatrixDUS, GyroW, GyroW);
         matrix::multiply(ErrorsMatrixAcc, Accel, Accel);
 
-        matrix::summ(Accel, sensors.get_d_a(), Accel);
-        matrix::summ(GyroW, sensors.get_w_dr(), GyroW);
+        double err_dus[3][1] = {sensors.get_w_dr(), sensors.get_w_dr(), sensors.get_w_dr()};
+        double err_acc[3][1] = {sensors.get_d_a(), sensors.get_d_a(), sensors.get_d_a()};
+
+        matrix::summ(Accel, err_dus, Accel);
+        matrix::summ(GyroW, err_acc, GyroW);
 
 
         if(!alignmentFlag){
@@ -143,7 +146,7 @@ int main(){
         orientationBlock::calcRoll(sensors.getCB_PL()[2][0], sensors.getCB_PL()[2][2]);
         orientationBlock::calcYaw(sensors.getCB_PL()[0][1], sensors.getCB_PL()[1][1]);
 
-        std::cout << "широта   " << radsToDegrees(navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getPitch() << "  тангаж   " << orientationBlock::getRoll() << "  курс  " << orientationBlock::getYaw() << std::endl;
+        std::cout << "широта   " << (navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getPitch() << "  тангаж   " << orientationBlock::getRoll() << "  курс  " << orientationBlock::getYaw() << std::endl;
 
             Fout << takt << "\t"
                     << orientationBlock::getPitch() << "\t"

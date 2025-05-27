@@ -40,11 +40,11 @@ void matrix::multiply3x3(double a[3][3], double b[3][3], double result[3][3])
     }
 }
 
-void matrix::summ(double A[3][1], double B, double C[3][1])
+void matrix::summ(double A[3][1], double B[3][1], double C[3][1])
 {
     for(int i = 0; i < 3; i++)
     {
-        C[i][0] += degreesToRads(B);
+        C[i][0] = A[i][0] + B[i][0];
     }
 }
 
@@ -82,31 +82,15 @@ void matrix::updateMatrix(double LL[3][3], double LL_dt[3][3]){
     }
 }
 
-void matrix::normalizeMatrix(double C_B_LL[3][3], int t){
-    for (int i = 0; i < 3; i++)
-    {
-        double s;
-
-        if (t % 2 == 0)
-        { // Если такт четный, нормализация по строкам
-            s = sqrt(C_B_LL[i][0] * C_B_LL[i][0] +
-                     C_B_LL[i][1] * C_B_LL[i][1] +
-                     C_B_LL[i][2] * C_B_LL[i][2]);
-
-            C_B_LL[i][0] /= s;
-            C_B_LL[i][1] /= s;
-            C_B_LL[i][2] /= s;
-        }
-        else
-        { // Если такт нечетный, нормализация по столбцам
-            s = sqrt(C_B_LL[0][i] * C_B_LL[0][i] +
-                     C_B_LL[1][i] * C_B_LL[1][i] +
-                     C_B_LL[2][i] * C_B_LL[2][i]);
-
-            C_B_LL[0][i] /= s;
-            C_B_LL[1][i] /= s;
-            C_B_LL[2][i] /= s;
-        }
+void matrix::normalizeMatrix(double C_B_LL[3][3], int t) {
+    // Ортогонализация по столбцам
+    for (int i = 0; i < 3; ++i) {
+        // Нормализация первого столбца
+        double norm = sqrt(C_B_LL[0][i] * C_B_LL[0][i] + C_B_LL[1][i] * C_B_LL[1][i] + C_B_LL[2][i] * C_B_LL[2][i]);
+        if (norm < 1e-10) norm = 1.0; // Защита от деления на ноль
+        C_B_LL[0][i] /= norm;
+        C_B_LL[1][i] /= norm;
+        C_B_LL[2][i] /= norm;
     }
 }
 
