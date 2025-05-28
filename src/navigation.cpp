@@ -18,7 +18,7 @@ void navigator::calcFi(double speedVN){
     current_VN = speedVN;
     double avg_speed = ((current_VN + previous_VN) / 2.0);
     integral_VN += ((avg_speed / (IMU::getR_fi() + data::getHeight())) * dt);
-    fi = data::getFi_0() + integral_VN;
+    fi = degreesToRads(data::getFi_0()) + integral_VN; // add degreesToRads()
 }
 
 void navigator::calcLambda(double speedVE){
@@ -26,7 +26,7 @@ void navigator::calcLambda(double speedVE){
     current_VE = speedVE;
     double avg_speed = ((current_VE + previous_VE) / 2.0);
     integral_VE += ((avg_speed / ((IMU::getR_lambda() + data::getHeight()) * cos(navigator::getFi()))) * dt);
-    lambda = data::getLambda_0() + integral_VE;
+    lambda = degreesToRads(data::getLambda_0()) + integral_VE; // add degreesToRads()
 }
 
 double navigator::getFi(){

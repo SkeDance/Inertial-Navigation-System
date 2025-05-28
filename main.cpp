@@ -113,8 +113,8 @@ int main(){
         navigator::calcFi(sensors.getSpeedVN());
         navigator::calcLambda(sensors.getSpeedVE());
 
-        navigator::setFi(navigator::getFi());
-        navigator::setLambda(navigator::getLambda());
+        navigator::setFi(degreesToRads(navigator::getFi())); // add degreesToRads()
+        navigator::setLambda(degreesToRads(navigator::getLambda())); // add degreesToRads()
 
         double matrix_W_B[3][3] = {
             {0, -GyroW[2][0], GyroW[1][0]},
@@ -146,7 +146,7 @@ int main(){
         orientationBlock::calcRoll(sensors.getCB_PL()[2][0], sensors.getCB_PL()[2][2]);
         orientationBlock::calcYaw(sensors.getCB_PL()[0][1], sensors.getCB_PL()[1][1]);
 
-        std::cout << "широта   " << (navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getPitch() << "  тангаж   " << orientationBlock::getRoll() << "  курс  " << orientationBlock::getYaw() << std::endl;
+        std::cout << "широта   " << radsToDegrees(navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getPitch() << "  тангаж   " << orientationBlock::getRoll() << "  курс  " << orientationBlock::getYaw() << std::endl;
 
             Fout << takt << "\t"
                     << orientationBlock::getPitch() << "\t"
