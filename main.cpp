@@ -48,19 +48,19 @@ int main(){
     while (std::getline(Fin, line)) {
         myData.parse(line);
 
-        std::cout   << myData.getTime() << "\t"
-                    << myData.getGyroX() << "\t"
-                    << myData.getGyroY() << "\t"
-                    << myData.getGyroZ() << "\t"
-                    << myData.getAccelX() << "\t"
-                    << myData.getAccelY() << "\t"
-                    << myData.getAccelZ() << "\t"
-                    << myData.getRoll_0() << "\t"
-                    << myData.getPitch_0() << "\t"
-                    << myData.getYaw_0() << "\t"
-                    << myData.getFi_0() << "\t"
-                    << myData.getLambda_0() << "\t"
-                    << myData.getHeight() << "\n" << std::endl;
+        // std::cout   << myData.getTime() << "\t"
+        //             << myData.getGyroX() << "\t"
+        //             << myData.getGyroY() << "\t"
+        //             << myData.getGyroZ() << "\t"
+        //             << myData.getAccelX() << "\t"
+        //             << myData.getAccelY() << "\t"
+        //             << myData.getAccelZ() << "\t"
+        //             << myData.getRoll_0() << "\t"
+        //             << myData.getPitch_0() << "\t"
+        //             << myData.getYaw_0() << "\t"
+        //             << myData.getFi_0() << "\t"
+        //             << myData.getLambda_0() << "\t"
+        //             << myData.getHeight() << "\n" << std::endl;
         
         double GyroW[3][1] = {{myData.getGyroX()}, {myData.getGyroY()}, {myData.getGyroZ()}};
         double Accel[3][1] = {{myData.getAccelX()}, {myData.getAccelY()}, {myData.getAccelZ()}}; 
@@ -71,21 +71,37 @@ int main(){
             {sensors.getNeort(), sensors.getNeort(), 1.0 + sensors.get_w_M()}
         };
 
-        double ErrorsMatrixAcc[3][3] = {
+                double ErrorsMatrixAcc[3][3] = {
             {1.0 + sensors.get_a_M(), sensors.getNeort(), sensors.getNeort()},
             {sensors.getNeort(), 1.0 + sensors.get_a_M(), sensors.getNeort()},
             {sensors.getNeort(), sensors.getNeort(), 1.0 + sensors.get_a_M()}
         }; 
-
+        std::cout << "old" << std::endl; 
+        std::cout << GyroW[0][0] << std::endl;
+        std::cout << GyroW[1][0] << std::endl;
+        std::cout << GyroW[2][0] << std::endl;
         matrix::multiply(ErrorsMatrixDUS, GyroW, GyroW);
+        std::cout << "new" << std::endl;
+        std::cout << GyroW[0][0] << std::endl;
+        std::cout << GyroW[1][0] << std::endl;
+        std::cout << GyroW[2][0] << std::endl;
         matrix::multiply(ErrorsMatrixAcc, Accel, Accel);
 
         double err_dus[3][1] = {sensors.get_w_dr(), sensors.get_w_dr(), sensors.get_w_dr()};
         double err_acc[3][1] = {sensors.get_d_a(), sensors.get_d_a(), sensors.get_d_a()};
 
-        matrix::summ(Accel, err_dus, Accel);
-        matrix::summ(GyroW, err_acc, GyroW);
+        std::cout << err_dus[0][0] << "\t" << err_dus[1][0] << "\t" << err_dus[2][0] << std::endl;
 
+        matrix::summ(Accel, err_acc, Accel);
+        std::cout << "old" << std::endl;
+        std::cout << GyroW[0][0] << std::endl;
+        std::cout << GyroW[1][0] << std::endl;
+        std::cout << GyroW[2][0] << std::endl;
+        matrix::summ(GyroW, err_dus, GyroW);
+        std::cout << "new" << std::endl; 
+        std::cout << GyroW[0][0] << std::endl;
+        std::cout << GyroW[1][0] << std::endl;
+        std::cout << GyroW[2][0] << std::endl;
 
         if(!alignmentFlag){
             sensors.set(myData.getRoll_0(), myData.getPitch_0(), myData.getYaw_0(), myData.getFi_0());
@@ -113,8 +129,8 @@ int main(){
         navigator::calcFi(sensors.getSpeedVN());
         navigator::calcLambda(sensors.getSpeedVE());
 
-        navigator::setFi(degreesToRads(navigator::getFi())); // add degreesToRads()
-        navigator::setLambda(degreesToRads(navigator::getLambda())); // add degreesToRads()
+        navigator::setFi((navigator::getFi())); // add degreesToRads()
+        navigator::setLambda((navigator::getLambda())); // add degreesToRads()
 
         double matrix_W_B[3][3] = {
             {0, -GyroW[2][0], GyroW[1][0]},
@@ -146,6 +162,7 @@ int main(){
         orientationBlock::calcRoll(sensors.getCB_PL()[2][0], sensors.getCB_PL()[2][2]);
         orientationBlock::calcYaw(sensors.getCB_PL()[0][1], sensors.getCB_PL()[1][1]);
 
+        //std::cout << "abracadabra";
         std::cout << "широта   " << radsToDegrees(navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getPitch() << "  тангаж   " << orientationBlock::getRoll() << "  курс  " << orientationBlock::getYaw() << std::endl;
 
             Fout << takt << "\t"
