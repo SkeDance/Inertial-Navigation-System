@@ -2,6 +2,7 @@
 #include "../include/IMU.h"
 #include "../include/math.h"
 #include "../include/data.h"
+#include "../include/navigation.h"
 #include "../include/matrixOperations.h"
 
 double IMU::R_fi = 0.0;
@@ -31,7 +32,7 @@ void IMU::set(double roll_0, double pitch_0, double yaw_0, double fi_0){
 
     double FE = d_a / g;
     double FN = d_a / g;
-    double FUp = w_dr / (degreesToRads(U) * cos(fi_0));
+    double FUp = w_dr / (degreesToRads(U) * cos(degreesToRads(fi_0)));
 
     CB_PL[0][0] = 1;
     CB_PL[0][1] = -FUp;
@@ -89,11 +90,11 @@ void IMU::calcAngularWE(double VN){
 }
 
 void  IMU::calcAngularWN(double VE){
-    WN = (VE / (getR_lambda() + data::getHeight()) + U * cos(data::getFi_0()));
+    WN = (VE / (getR_lambda() + data::getHeight()) + degreesToRads(U) * cos(data::getFi_0()));
 }
 
 void IMU::calcAngularWUp(double VE){
-    WUp = (VE / (getR_lambda() + data::getHeight()) * tan(data::getFi_0()) + U * sin(data::getFi_0()));
+    WUp = (VE / (getR_lambda() + data::getHeight()) * tan(data::getFi_0()) + degreesToRads(U) * sin(data::getFi_0()));
 }
 
 double IMU::getAngularWE(){
@@ -109,15 +110,15 @@ double IMU::getAngularWUp(){
 }
 
 void IMU::calc_aEk(){
-    aEk = ((-IMU::getAngularWN() * IMU::getSpeedVUp()) + (IMU::getAngularWUp() * IMU::getSpeedVN()) +(-U * cos(data::getFi_0()) * IMU::getSpeedVUp()) + (U * sin(data::getFi_0()) * IMU::getSpeedVN()));
+    aEk = ((-IMU::getAngularWN() * IMU::getSpeedVUp()) + (IMU::getAngularWUp() * IMU::getSpeedVN()) +(-degreesToRads(U) * cos(navigator::getFi()) * IMU::getSpeedVUp()) + (degreesToRads(U)  * sin(navigator::getFi()) * IMU::getSpeedVN()));
 }
 
 void IMU::calc_aNk(){
-    aNk = ((-IMU::getAngularWE() * IMU::getSpeedVUp()) + (-IMU::getAngularWUp() * IMU::getSpeedVE()) + (-U * sin(data::getFi_0()) * IMU::getSpeedVE()));
+    aNk = ((-IMU::getAngularWE() * IMU::getSpeedVUp()) + (-IMU::getAngularWUp() * IMU::getSpeedVE()) + (-degreesToRads(U)  * sin(navigator::getFi()) * IMU::getSpeedVE()));
 }
 
 void IMU::calc_aUpk(){
-    aUPk = ((-IMU::getAngularWE() * IMU::getSpeedVN()) + (IMU::getAngularWN() * IMU::getSpeedVE()) + (U * cos(data::getFi_0()) * IMU::getSpeedVE() - g));
+    aUPk = ((-IMU::getAngularWE() * IMU::getSpeedVN()) + (IMU::getAngularWN() * IMU::getSpeedVE()) + (degreesToRads(U)  * cos(data::getFi_0()) * IMU::getSpeedVE() - g));
 }
 
 double IMU::getSpeedVE(){

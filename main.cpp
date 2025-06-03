@@ -105,7 +105,7 @@ int main(){
 
         if(!alignmentFlag){
             sensors.set(myData.getRoll_0(), myData.getPitch_0(), myData.getYaw_0(), myData.getFi_0());
-            navigator::setFi(myData.getFi_0()); 
+            navigator::setFi(degreesToRads((myData.getFi_0()))); 
             alignmentFlag = true;
         }
 
