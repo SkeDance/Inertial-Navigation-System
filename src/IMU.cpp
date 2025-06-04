@@ -90,11 +90,11 @@ void IMU::calcAngularWE(double VN){
 }
 
 void  IMU::calcAngularWN(double VE){
-    WN = (VE / (getR_lambda() + data::getHeight()) + degreesToRads(U) * cos(data::getFi_0()));
+    WN = (VE / (getR_lambda() + data::getHeight()) + degreesToRads(U) * cos(navigator::getFi()));
 }
 
 void IMU::calcAngularWUp(double VE){
-    WUp = (VE / (getR_lambda() + data::getHeight()) * tan(data::getFi_0()) + degreesToRads(U) * sin(data::getFi_0()));
+    WUp = (VE / (getR_lambda() + data::getHeight()) * tan(navigator::getFi()) + degreesToRads(U) * sin(navigator::getFi()));
 }
 
 double IMU::getAngularWE(){
@@ -118,7 +118,7 @@ void IMU::calc_aNk(){
 }
 
 void IMU::calc_aUpk(){
-    aUPk = ((-IMU::getAngularWE() * IMU::getSpeedVN()) + (IMU::getAngularWN() * IMU::getSpeedVE()) + (degreesToRads(U)  * cos(data::getFi_0()) * IMU::getSpeedVE() - g));
+    aUPk = ((-IMU::getAngularWE() * IMU::getSpeedVN()) + (IMU::getAngularWN() * IMU::getSpeedVE()) + (degreesToRads(U)  * cos(navigator::getFi()) * IMU::getSpeedVE() - g));
 }
 
 double IMU::getSpeedVE(){

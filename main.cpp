@@ -76,32 +76,32 @@ int main(){
             {sensors.getNeort(), 1.0 + sensors.get_a_M(), sensors.getNeort()},
             {sensors.getNeort(), sensors.getNeort(), 1.0 + sensors.get_a_M()}
         }; 
-        std::cout << "old" << std::endl; 
-        std::cout << GyroW[0][0] << std::endl;
-        std::cout << GyroW[1][0] << std::endl;
-        std::cout << GyroW[2][0] << std::endl;
+        // std::cout << "old" << std::endl; 
+        // std::cout << GyroW[0][0] << std::endl;
+        // std::cout << GyroW[1][0] << std::endl;
+        // std::cout << GyroW[2][0] << std::endl;
         matrix::multiply(ErrorsMatrixDUS, GyroW, GyroW);
-        std::cout << "new" << std::endl;
-        std::cout << GyroW[0][0] << std::endl;
-        std::cout << GyroW[1][0] << std::endl;
-        std::cout << GyroW[2][0] << std::endl;
+        // std::cout << "new" << std::endl;
+        // std::cout << GyroW[0][0] << std::endl;
+        // std::cout << GyroW[1][0] << std::endl;
+        // std::cout << GyroW[2][0] << std::endl;
         matrix::multiply(ErrorsMatrixAcc, Accel, Accel);
 
         double err_dus[3][1] = {sensors.get_w_dr(), sensors.get_w_dr(), sensors.get_w_dr()};
         double err_acc[3][1] = {sensors.get_d_a(), sensors.get_d_a(), sensors.get_d_a()};
 
-        std::cout << err_dus[0][0] << "\t" << err_dus[1][0] << "\t" << err_dus[2][0] << std::endl;
+        // std::cout << err_dus[0][0] << "\t" << err_dus[1][0] << "\t" << err_dus[2][0] << std::endl;
 
         matrix::summ(Accel, err_acc, Accel);
-        std::cout << "old" << std::endl;
-        std::cout << GyroW[0][0] << std::endl;
-        std::cout << GyroW[1][0] << std::endl;
-        std::cout << GyroW[2][0] << std::endl;
+        // std::cout << "old" << std::endl;
+        // std::cout << GyroW[0][0] << std::endl;
+        // std::cout << GyroW[1][0] << std::endl;
+        // std::cout << GyroW[2][0] << std::endl;
         matrix::summ(GyroW, err_dus, GyroW);
-        std::cout << "new" << std::endl; 
-        std::cout << GyroW[0][0] << std::endl;
-        std::cout << GyroW[1][0] << std::endl;
-        std::cout << GyroW[2][0] << std::endl;
+        // std::cout << "new" << std::endl; 
+        // std::cout << GyroW[0][0] << std::endl;
+        // std::cout << GyroW[1][0] << std::endl;
+        // std::cout << GyroW[2][0] << std::endl;
 
         if(!alignmentFlag){
             sensors.set(myData.getRoll_0(), myData.getPitch_0(), myData.getYaw_0(), myData.getFi_0());
@@ -157,7 +157,7 @@ int main(){
         matrix::normalizeMatrix(sensors.getCB_PL(), takt);
         takt++;
 
-        orientationBlock::calcC0(sensors.getCB_PL()[2][0], sensors.getCB_PL()[2][0]);
+        orientationBlock::calcC0(sensors.getCB_PL()[2][0], sensors.getCB_PL()[2][2]);
         orientationBlock::calcPitch(sensors.getCB_PL()[2][1]);
         orientationBlock::calcRoll(sensors.getCB_PL()[2][0], sensors.getCB_PL()[2][2]);
         orientationBlock::calcYaw(sensors.getCB_PL()[0][1], sensors.getCB_PL()[1][1]);
