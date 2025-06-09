@@ -71,7 +71,7 @@ int main(){
             {sensors.getNeort(), sensors.getNeort(), 1.0 + sensors.get_w_M()}
         };
 
-                double ErrorsMatrixAcc[3][3] = {
+        double ErrorsMatrixAcc[3][3] = {
             {1.0 + sensors.get_a_M(), sensors.getNeort(), sensors.getNeort()},
             {sensors.getNeort(), 1.0 + sensors.get_a_M(), sensors.getNeort()},
             {sensors.getNeort(), sensors.getNeort(), 1.0 + sensors.get_a_M()}
@@ -163,7 +163,7 @@ int main(){
         orientationBlock::calcYaw(sensors.getCB_PL()[0][1], sensors.getCB_PL()[1][1]);
 
         //std::cout << "abracadabra";
-        std::cout << "широта   " << radsToDegrees(navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getPitch() << "  тангаж   " << orientationBlock::getRoll() << "  курс  " << orientationBlock::getYaw() << std::endl;
+        std::cout << "широта   " << radsToDegrees(navigator::getFi()) << "  долгота    " << radsToDegrees(navigator::getLambda()) << "  крен  " << orientationBlock::getRoll() << "  тангаж   " << orientationBlock::getPitch() << "  курс  " << orientationBlock::getYaw() << std::endl;
 
             Fout << takt << "\t"
                     << orientationBlock::getPitch() << "\t"
